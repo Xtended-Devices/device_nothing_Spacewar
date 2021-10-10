@@ -75,6 +75,7 @@ include hardware/qcom-caf/sm8350/display/config/display-board.mk
 
 SOONG_CONFIG_qtidisplay_udfps := true
 TARGET_SCREEN_DENSITY := 420
+TARGET_USES_VULKAN := true
 
 # FSConfig
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
