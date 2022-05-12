@@ -27,6 +27,9 @@ persist.backup.ntpServer=0.pool.ntp.org
 # Fingerprint
 ro.bootloader.locked=0
 
+# HWUI
+debug.hwui.skia_atrace_enabled=false
+
 # Media
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true
