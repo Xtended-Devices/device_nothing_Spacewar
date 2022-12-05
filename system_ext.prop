@@ -24,6 +24,9 @@ ro.bootloader.locked=0
 # GPS
 persist.backup.ntpServer=0.pool.ntp.org
 
+# Fingerprint
+ro.bootloader.locked=0
+
 # Media
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true
