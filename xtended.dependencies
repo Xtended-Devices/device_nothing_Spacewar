@@ -1,0 +1,20 @@
+[
+  {
+    "remote": "Xtended-Devices",
+    "repository"  : "kernel_nothing_sm7325",
+    "target_path" : "kernel/nothing/sm7325",
+    "revision": "xt"
+  },
+    {
+    "remote": "x-gitlab",
+    "repository"  : "vendor/vendor_nothing_Spacewar",
+    "target_path" : "vendor/nothing/Spacewar",
+    "revision": "xt"
+  },
+    {
+    "remote": "x-gitlab",
+    "repository"  : "vendor/vendor_nothing_camera",
+    "target_path" : "vendor/nothing/camera",
+    "revision": "xt"
+  }
+]
