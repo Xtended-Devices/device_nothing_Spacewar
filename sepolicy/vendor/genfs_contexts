@@ -16,6 +16,9 @@ genfscon sysfs /devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/si
 # Media
 genfscon sysfs /devices/platform/soc/aa00000.qcom,vidc/sku_version      u:object_r:vendor_sysfs_sku:s0
 
+# PowerShare
+genfscon sysfs /class/qcom-battery/wireless_boost_en                            u:object_r:sysfs_powershare:s0
+
 # Wakeup
 genfscon sysfs /devices/platform/dummy_hcd.0/usb1/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/soc/17a10040.qcom,wcn6750/wakeup u:object_r:sysfs_wakeup:s0
