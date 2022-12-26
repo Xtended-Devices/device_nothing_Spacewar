@@ -51,6 +51,7 @@ persist.mm.enable.prefetch=true
 persist.data.df.agg.dl_pkt=10
 persist.data.df.agg.dl_size=4096
 persist.vendor.data.mode=concurrent
+ro.vendor.use_data_netmgrd=true
 
 # Radio
 persist.dbg.volte_avail_ovr=1
