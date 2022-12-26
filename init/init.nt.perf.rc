@@ -1,0 +1,15 @@
+#
+# Copyright (C) 2022 The Nameless-AOSP Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+service nt-post-boot /vendor/bin/sh /vendor/bin/init.nt.post_boot.sh
+    class core
+    user root
+    group root system wakelock graphics
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1
+    start nt-post-boot

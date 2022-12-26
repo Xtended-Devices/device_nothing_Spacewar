@@ -18,6 +18,13 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "init.nt.perf.rc",
+    src: "init.nt.perf.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "init.qcom.rc",
     src: "init.qcom.rc",
     sub_dir: "init/hw",
@@ -49,6 +56,12 @@ prebuilt_etc {
     name: "ueventd.qcom.rc",
     filename: "ueventd.rc",
     src: "ueventd.qcom.rc",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.nt.post_boot.sh",
+    src: "init.nt.post_boot.sh",
     vendor: true,
 }
 
