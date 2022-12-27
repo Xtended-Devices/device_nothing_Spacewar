@@ -54,9 +54,6 @@ persist.vendor.data.mode=concurrent
 ro.vendor.use_data_netmgrd=true
 
 # Radio
-persist.dbg.volte_avail_ovr=1
-persist.dbg.wfc_avail_ovr=1
-persist.dbg.vt_avail_ovr=1
 persist.vendor.radio.atfwd.start=true
 ril.subscription.types=NV,RUIM
 rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
