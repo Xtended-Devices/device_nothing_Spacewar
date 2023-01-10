@@ -19,7 +19,4 @@
         <item>org.lineageos.aperture</item>
         <item>com.nothing.camera</item>
     </string-array>    
-
-    <!-- Pocket Lock -->
-    <bool name="config_pocketModeSupported">false</bool>
 </resources>

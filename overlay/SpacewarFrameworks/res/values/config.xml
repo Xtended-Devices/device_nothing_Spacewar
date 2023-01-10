@@ -604,12 +604,6 @@
     <!-- Type of the double tap sensor. Empty if double tap is not supported. -->
     <string name="config_dozeDoubleTapSensorType" translatable="false">org.lineageos.sensor.double_tap</string>
 
-   <!-- Doze: does the double tap sensor need a proximity check? -->
-    <bool name="doze_double_tap_proximity_check">true</bool>
-
-    <!-- Doze: does the long press sensor need a proximity check? -->
-    <bool name="doze_long_press_proximity_check">true</bool>
-
     <!-- Power Management: Specifies whether to decouple the interactive state of the
          device from the display on/off state.
          When false, setInteractive(..., true) will be called before the display is turned on
