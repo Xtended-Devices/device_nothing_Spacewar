@@ -8,6 +8,10 @@
     "target_path": "kernel/nothing/sm7325"
   },
   {
+    "repository": "packages_apps_PixysGlyph",
+    "target_path": "packages/apps/PixysGlyph"
+  },
+  {
     "repository": "vendor_nothing_camera",
     "target_path": "vendor/nothing/camera",
     "remote": "pixys-gitlab"
