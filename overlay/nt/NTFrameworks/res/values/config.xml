@@ -565,4 +565,7 @@
         <item>com.nothing.camera</item>
     </string-array>
 
+    <!-- Colon separated list of package names that should be granted Notification Listener access -->
+    <string name="config_defaultListenerAccessPackages" translatable="false">com.xtended.glyph</string>
+
 </resources>
