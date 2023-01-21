@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package co.aospa.glyph.Services;
+package com.xtended.glyph.Services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -33,11 +33,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import co.aospa.glyph.Constants.Constants;
-import co.aospa.glyph.Manager.AnimationManager;
-import co.aospa.glyph.Manager.SettingsManager;
-import co.aospa.glyph.Manager.StatusManager;
-import co.aospa.glyph.Utils.FileUtils;
+import com.xtended.glyph.Constants.Constants;
+import com.xtended.glyph.Manager.AnimationManager;
+import com.xtended.glyph.Manager.SettingsManager;
+import com.xtended.glyph.Manager.StatusManager;
+import com.xtended.glyph.Utils.FileUtils;
 
 public class NotificationService extends NotificationListenerService {
 

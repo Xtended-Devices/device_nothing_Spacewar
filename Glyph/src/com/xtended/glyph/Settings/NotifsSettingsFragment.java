@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package co.aospa.glyph.Settings;
+package com.xtended.glyph.Settings;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -36,10 +36,10 @@ import com.android.settingslib.widget.OnMainSwitchChangeListener;
 import java.util.Collections;
 import java.util.List;
 
-import co.aospa.glyph.R;
-import co.aospa.glyph.Constants.Constants;
-import co.aospa.glyph.Manager.SettingsManager;
-import co.aospa.glyph.Utils.ServiceUtils;
+import com.xtended.glyph.R;
+import com.xtended.glyph.Constants.Constants;
+import com.xtended.glyph.Manager.SettingsManager;
+import com.xtended.glyph.Utils.ServiceUtils;
 
 public class NotifsSettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener,
         OnMainSwitchChangeListener {

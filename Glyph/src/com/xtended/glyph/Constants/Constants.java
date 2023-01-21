@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package co.aospa.glyph.Constants;
+package com.xtended.glyph.Constants;
 
 public final class Constants {
 

@@ -16,14 +16,14 @@
  * limitations under the License.
  */
 
-package co.aospa.glyph;
+package com.xtended.glyph;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import co.aospa.glyph.Utils.ServiceUtils;
+import com.xtended.glyph.Utils.ServiceUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
