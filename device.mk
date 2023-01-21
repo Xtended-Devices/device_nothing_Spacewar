@@ -339,10 +339,6 @@ PRODUCT_PACKAGES += \
     QSSITelephony \
     QSSIWifi
 
-# Parts
-PRODUCT_PACKAGES += \
-    NothingParts
-
 # Project ID Quota
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
