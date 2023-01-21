@@ -96,6 +96,13 @@ on post-fs-data
     # Enable WLAN cold boot calibration
     write /sys/devices/platform/soc/b0000000.qcom,cnss-qca6490/fs_ready 1
 
+   # Boot led effect placeholder
+on property:service.bootanim.exit=0
+   write /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/bootan_leds_effect 1
+
+on property:service.bootanim.exit=1
+   write /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/bootan_leds_effect 0
+
 on early-boot
     start vendor.sensors
     verity_update_state
@@ -137,14 +144,16 @@ on boot
     setprop vendor.usb.controller a600000.dwc3
     #Allow access to memory hotplug device attributes
     chown system system /sys/kernel/mem-offline/anon_migrate
-    # add for cit to write leds
+
+    # Glyph
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/all_leds_effect
     chmod 0666 /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/all_leds_effect
-    # add for ledTest to write led brightness
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/all_white_leds_br
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/glo_current
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/rear_cam_led_br
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/front_cam_led_br
+    chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/vline_leds_br
+    chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/dot_led_br
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/horse_race_leds_br
     chmod 0666 /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/horse_race_leds_br
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/round_leds_br
@@ -153,7 +162,6 @@ on boot
     chmod 0666 /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/single_led_br
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/round_leds_effect
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/horse_race_leds
-    #add for hal write lednode
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/wired_charging_leds
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/random_delay
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/random_leds_effect
@@ -170,7 +178,7 @@ on boot
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/exclamation_leds_effect
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/setting_leds_effect
     chown system system /sys/devices/platform/soc/984000.i2c/i2c-0/0-0020/leds/aw210xx_led/setting_br
-
+    
 on property:vendor.display.lcd_density=560
    setprop dalvik.vm.heapgrowthlimit 256m
 
