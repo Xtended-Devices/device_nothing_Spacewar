@@ -18,7 +18,6 @@
 
 package com.xtended.glyph.Services;
 
-import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 

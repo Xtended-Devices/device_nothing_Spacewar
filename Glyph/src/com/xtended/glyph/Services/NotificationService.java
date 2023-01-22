@@ -16,7 +16,6 @@
 
 package com.xtended.glyph.Services;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -32,8 +31,6 @@ import com.android.internal.util.ArrayUtils;
 import com.xtended.glyph.Constants.Constants;
 import com.xtended.glyph.Manager.AnimationManager;
 import com.xtended.glyph.Manager.SettingsManager;
-import com.xtended.glyph.Manager.StatusManager;
-import com.xtended.glyph.Utils.FileUtils;
 
 public class NotificationService extends NotificationListenerService {
 
@@ -75,7 +72,7 @@ public class NotificationService extends NotificationListenerService {
             if (packageChannel != null) {
                 packageImportance = packageChannel.getImportance();
             }
-        } catch (PackageManager.NameNotFoundException e) {};
+        } catch (PackageManager.NameNotFoundException ignored) {}
         if (DEBUG) Log.d(TAG, "onNotificationPosted: package:" + packageName + " | channel id: " + packageChannelID + " | importance: " + packageImportance);
         if (SettingsManager.isGlyphNotifsAppEnabled(this, packageName)
                         && !sbn.isOngoing()
