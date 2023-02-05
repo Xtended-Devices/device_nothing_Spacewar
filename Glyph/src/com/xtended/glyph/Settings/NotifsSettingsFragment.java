@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Paranoid Android
+ * Copyright (C) 2022-2023 Paranoid Android
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,15 @@ package com.xtended.glyph.Settings;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.widget.Switch;
 
-import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreference;
 
@@ -33,33 +35,53 @@ import com.android.internal.util.ArrayUtils;
 import com.android.settingslib.widget.MainSwitchPreference;
 import com.android.settingslib.widget.OnMainSwitchChangeListener;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.xtended.glyph.R;
 import com.xtended.glyph.Constants.Constants;
 import com.xtended.glyph.Manager.SettingsManager;
+import com.xtended.glyph.Preference.GlyphAnimationPreference;
 import com.xtended.glyph.Utils.ServiceUtils;
 
-public class NotifsSettingsFragment extends PreferenceFragmentCompat implements OnPreferenceChangeListener,
+public class NotifsSettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener,
         OnMainSwitchChangeListener {
+
+    private PreferenceScreen mScreen;
+
+    private MainSwitchPreference mSwitchBar;
+    private PreferenceCategory mCategory;
+
+    private List<ApplicationInfo> mApps;
+    private PackageManager mPackageManager;
+
+    private ListPreference mListPreference;
+
+    private GlyphAnimationPreference mGlyphAnimationPreference;
+
+    private Handler mHandler = new Handler();
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.glyph_notifs_settings);
 
-        PreferenceScreen mScreen = this.getPreferenceScreen();
-        requireActivity().setTitle(R.string.glyph_settings_notifs_toggle_title);
+        mScreen = this.getPreferenceScreen();
+        getActivity().setTitle(R.string.glyph_settings_notifs_toggle_title);
 
-        MainSwitchPreference mSwitchBar = (MainSwitchPreference) findPreference(Constants.GLYPH_NOTIFS_SUB_ENABLE);
-        assert mSwitchBar != null;
+        mSwitchBar = (MainSwitchPreference) findPreference(Constants.GLYPH_NOTIFS_SUB_ENABLE);
         mSwitchBar.addOnSwitchChangeListener(this);
-        mSwitchBar.setChecked(SettingsManager.isGlyphNotifsEnabled(requireActivity()));
+        mSwitchBar.setChecked(SettingsManager.isGlyphNotifsEnabled());
 
-        PreferenceCategory mCategory = (PreferenceCategory) findPreference(Constants.GLYPH_NOTIFS_SUB_CATEGORY);
+        mCategory = (PreferenceCategory) findPreference(Constants.GLYPH_NOTIFS_SUB_CATEGORY);
 
-        PackageManager mPackageManager = requireActivity().getPackageManager();
-        List<ApplicationInfo> mApps = mPackageManager.getInstalledApplications(PackageManager.GET_GIDS);
-        mApps.sort(new ApplicationInfo.DisplayNameComparator(mPackageManager));
+        mListPreference = (ListPreference) findPreference(Constants.GLYPH_NOTIFS_SUB_ANIMATIONS);
+        mListPreference.setOnPreferenceChangeListener(this);
+
+        mGlyphAnimationPreference = (GlyphAnimationPreference) findPreference(Constants.GLYPH_NOTIFS_SUB_PREVIEW);
+
+        mPackageManager = getActivity().getPackageManager();
+        mApps = mPackageManager.getInstalledApplications(PackageManager.GET_GIDS);
+        Collections.sort(mApps, new ApplicationInfo.DisplayNameComparator(mPackageManager));
         for (ApplicationInfo app : mApps) {
             if(mPackageManager.getLaunchIntentForPackage(app.packageName) != null  && !ArrayUtils.contains(Constants.APPSTOIGNORE, app.packageName)) { // apps with launcher intent
                 SwitchPreference mSwitchPreference = new SwitchPreference(mScreen.getContext());
@@ -68,22 +90,38 @@ public class NotifsSettingsFragment extends PreferenceFragmentCompat implements 
                 mSwitchPreference.setIcon(app.loadIcon(mPackageManager));
                 mSwitchPreference.setDefaultValue(true);
                 mSwitchPreference.setOnPreferenceChangeListener(this);
-                assert mCategory != null;
                 mCategory.addPreference(mSwitchPreference);
             }
         }
     }
 
     @Override
-    public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
-        //mHandler.post(() -> ServiceUtils.checkGlyphService(getActivity()));
+    public void onViewCreated (View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mGlyphAnimationPreference.updateAnimation(SettingsManager.isGlyphNotifsEnabled(),
+                SettingsManager.getGlyphNotifsAnimation(), 1500);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        final String preferenceKey = preference.getKey();
+
+        if (preferenceKey.equals(Constants.GLYPH_NOTIFS_SUB_ANIMATIONS)) {
+            mGlyphAnimationPreference.updateAnimation(SettingsManager.isGlyphNotifsEnabled(),
+                newValue.toString(), 1500);
+        }
+
+        //mHandler.post(() -> ServiceUtils.checkGlyphService());
+
         return true;
     }
 
     @Override
     public void onSwitchChanged(Switch switchView, boolean isChecked) {
-        SettingsManager.setGlyphNotifsEnabled(requireActivity(), isChecked);
-        ServiceUtils.checkGlyphService(getActivity());
+        SettingsManager.setGlyphNotifsEnabled(isChecked);
+        ServiceUtils.checkGlyphService();
+        mGlyphAnimationPreference.updateAnimation(isChecked,
+                SettingsManager.getGlyphNotifsAnimation(), 1500);
     }
 
 }

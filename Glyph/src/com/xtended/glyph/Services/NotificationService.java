@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Paranoid Android
+ * Copyright (C) 2022-2023 Paranoid Android
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.xtended.glyph.Services;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -72,14 +73,14 @@ public class NotificationService extends NotificationListenerService {
             if (packageChannel != null) {
                 packageImportance = packageChannel.getImportance();
             }
-        } catch (PackageManager.NameNotFoundException ignored) {}
+        } catch (PackageManager.NameNotFoundException e) {}
         if (DEBUG) Log.d(TAG, "onNotificationPosted: package:" + packageName + " | channel id: " + packageChannelID + " | importance: " + packageImportance);
-        if (SettingsManager.isGlyphNotifsAppEnabled(this, packageName)
+        if (SettingsManager.isGlyphNotifsAppEnabled(packageName)
                         && !sbn.isOngoing()
                         && !ArrayUtils.contains(Constants.APPSTOIGNORE, packageName)
                         && !ArrayUtils.contains(Constants.NOTIFSTOIGNORE, packageName + ":" + packageChannelID)
                         && (packageImportance >= NotificationManager.IMPORTANCE_DEFAULT || packageImportance == -1)) {
-            AnimationManager.playCsv("break", this);
+            AnimationManager.playCsv(SettingsManager.getGlyphNotifsAnimation());
         }
     }
 

@@ -36,11 +36,14 @@ public class FlipToGlyphSensor implements SensorEventListener {
     private boolean isFlipped = false;
     private final Consumer<Boolean> mOnFlip;
 
-    private final SensorManager mSensorManager;
-    private final Sensor mSensorAccelerometer;
-    private final Context mContext;
+    private SensorManager mSensorManager;
+    private Sensor mSensorAccelerometer;
+    private Context mContext;
 
-    private final Duration mTimeThreshold = Duration.ofMillis(500);
+    private Duration mTimeThreshold = Duration.ofMillis(1_000L);;
+    private float mAccelerationThreshold = 0.2f;
+    private float mZAccelerationThreshold = -9.5f;
+    private float mZAccelerationThresholdLenient = mZAccelerationThreshold + 1.0f;
     private float mPrevAcceleration = 0;
     private long mPrevAccelerationTime = 0;
     private boolean mZAccelerationIsFaceDown = false;
@@ -69,7 +72,6 @@ public class FlipToGlyphSensor implements SensorEventListener {
         mCurrentZAcceleration.updateMovingAverage(event.values[2]);
 
         final long curTime = event.timestamp;
-        float mAccelerationThreshold = 0.2f;
         if (Math.abs(mCurrentXYAcceleration.mMovingAverage - mPrevAcceleration)
                 > mAccelerationThreshold) {
             mPrevAcceleration = mCurrentXYAcceleration.mMovingAverage;
@@ -77,8 +79,6 @@ public class FlipToGlyphSensor implements SensorEventListener {
         }
         final boolean moving = curTime - mPrevAccelerationTime <= mTimeThreshold.toNanos();
 
-        float mZAccelerationThreshold = -9.5f;
-        float mZAccelerationThresholdLenient = mZAccelerationThreshold + 1.0f;
         final float zAccelerationThreshold =
                 isFlipped ? mZAccelerationThresholdLenient : mZAccelerationThreshold;
         final boolean isCurrentlyFaceDown =
@@ -123,7 +123,7 @@ public class FlipToGlyphSensor implements SensorEventListener {
         mSensorManager.unregisterListener(this, mSensorAccelerometer);
     }
 
-    private static final class ExponentialMovingAverage {
+    private final class ExponentialMovingAverage {
         private final float mAlpha;
         private final float mInitialAverage;
         private float mMovingAverage;
