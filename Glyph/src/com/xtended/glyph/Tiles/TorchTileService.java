@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2015 The CyanogenMod Project
  * Copyright (C) 2017 The LineageOS Project
- * Copyright (C) 2022 Paranoid Android
+ * Copyright (C) 2022-2023 Paranoid Android
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,17 @@
  * limitations under the License.
  */
 
-package com.xtended.glyph.Services;
+package com.xtended.glyph.Tiles;
 
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import com.xtended.glyph.R;
-import com.xtended.glyph.Constants.Constants;
 import com.xtended.glyph.Manager.StatusManager;
 import com.xtended.glyph.Utils.FileUtils;
 
 /** Quick settings tile: Glyph **/
-public class GlyphTileService extends TileService {
+public class TorchTileService extends TileService {
 
     @Override
     public void onStartListening() {
@@ -57,6 +56,6 @@ public class GlyphTileService extends TileService {
 
     private void setEnabled(boolean enabled) {
         StatusManager.setAllLedsActive(enabled);
-        FileUtils.writeLine(Constants.ALLWHITELEDPATH, enabled ? 4095 : 0);
+        FileUtils.writeLineFromSlug("all", enabled ? 4095 : 0);
     }
 }

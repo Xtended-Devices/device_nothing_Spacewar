@@ -16,7 +16,12 @@
 
 package com.xtended.glyph.Manager;
 
+import android.util.Log;
+
 public final class StatusManager {
+
+    private static final String TAG = "GlyphStatusManager";
+    private static final boolean DEBUG = true;
 
     private static boolean allLedActive = false;
     private static boolean animationActive = false;
