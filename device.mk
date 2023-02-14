@@ -26,7 +26,8 @@ DEVICE_PACKAGE_OVERLAYS += \
 # RRO (pixys)
 PRODUCT_PACKAGES += \
     PixysFrameworksSpacewar \
-    PixysSystemUISpacewar
+    PixysSystemUISpacewar \
+    BoostFrameworkOverlay
 
 # RRO (Spacewar)
 PRODUCT_PACKAGES += \
