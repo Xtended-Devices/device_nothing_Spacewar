@@ -131,6 +131,9 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl-qti.recovery \
     android.hardware.boot@1.2-service
 
+# Blur
+TARGET_ENABLE_BLUR := true
+
 # Camera
 $(call inherit-product, vendor/nothing/camera/nothing-camera.mk)
 
