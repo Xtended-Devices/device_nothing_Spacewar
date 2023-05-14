@@ -468,6 +468,9 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0 \
     android.hardware.thermal@2.0.vendor
 
+# UDFPS animations
+EXTRA_UDFPS_ANIMATIONS := true
+
 # Update engine
 PRODUCT_PACKAGES += \
     update_engine \
